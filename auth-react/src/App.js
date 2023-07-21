@@ -6,8 +6,8 @@ import SignUpModal from "./component/SignUpModal";
 function App() {
   return (
     <>
-    <Navbar/>
     <SignUpModal/>
+    <Navbar/>
     <Routes>
       <Route path="/" element={<Home/>} />
     </Routes>
