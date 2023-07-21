@@ -11,8 +11,13 @@ export default function Navbar() {
         className='navbar-brand'>
           Authjs        
         </Link>
-      </nav>
 
+      <div>
+      <button className=" btn btn-primary"> Sign up</button>
+      <button className= " btn btn-primary ms-2"> Sign in</button>
+      <button className=" btn btn-danger ms-2"> Logout</button>
+      </div>
+      </nav>
 
     </>
 
