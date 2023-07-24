@@ -44,6 +44,14 @@ export default function SignUpModal() {
             console.log(cred);
         }catch(err){
 
+            if(err.code === "auth/invalid-email"){
+                setValidation("Email format invalid")
+            }
+
+            if(err.code === "auth/email-already-in-use"){
+                setValidation("Email already used")
+            }
+
         }
     }
 
