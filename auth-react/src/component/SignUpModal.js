@@ -2,8 +2,8 @@ import React, { useContext, useRef, useState } from 'react'
 import { UserContext } from '../context/UserContext'
 
 export default function SignUpModal() {
-    const { toggleModals, modalState } = useContext(UserContext)
-    console.log(toggleModals, modalState)
+    const { toggleModals, modalState, signup} = useContext(UserContext)
+    console.log(toggleModals, modalState,signup)
 
     const inputs = useRef([])
 
@@ -17,7 +17,9 @@ export default function SignUpModal() {
         }
     }
 
-    const handleFormSubmit = (e) => {
+    const formRef = useRef();
+
+    const handleFormSubmit = async (e) => {
         e.preventDefault()
         console.log(inputs)
 
@@ -31,7 +33,20 @@ export default function SignUpModal() {
             setValidation("password dont match");
             return;
         }
+
+        try {
+            const cred = await signup(
+                inputs.current[0].value,
+                inputs.current[1].value,
+            )
+            formRef.current.reset();
+            setValidation("");
+            console.log(cred);
+        }catch(err){
+
+        }
     }
+
     return (
         <>
             {modalState.signUpModal && (
@@ -60,6 +75,7 @@ export default function SignUpModal() {
 
                                     <div className="modal-body">
                                         <form 
+                                        ref={formRef}
                                         onClick={(handleFormSubmit)}
                                         action="" className="sign-up-form">
                                             <div className="mb-3">
