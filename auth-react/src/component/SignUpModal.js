@@ -1,9 +1,37 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { UserContext } from '../context/UserContext'
 
 export default function SignUpModal() {
     const { toggleModals, modalState } = useContext(UserContext)
     console.log(toggleModals, modalState)
+
+    const inputs = useRef([])
+
+    const [Validation ,setValidation] = useState("");
+
+    const addInputs = el =>{
+        // si l'element existe && et  n'est pas present dans le tableau alors je rajoute dedans (tableau)
+        if(el && !inputs.current.includes(el)){
+            inputs.current.push(el)
+
+        }
+    }
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+        console.log(inputs)
+
+        if((inputs.current[1].value.length || inputs.current[2].value.lenght) < 6) {
+
+            setValidation("6 characters min")
+            return ;
+        }
+        else if(inputs.current[1].value !== inputs.current[2].value)
+        {
+            setValidation("password dont match");
+            return;
+        }
+    }
     return (
         <>
             {modalState.signUpModal && (
@@ -14,6 +42,7 @@ export default function SignUpModal() {
                     onClick={()=> toggleModals("close")}
                     className="w-100 h-100 bg-dark bg-opacity-75">
 
+                        </div>
                         <div className="position-absolute  top-50 start-50 translate-middle"
 
                             style={{ minWidth: "400px", backgroundColor: "white", padding: "20px" }}>
@@ -30,11 +59,15 @@ export default function SignUpModal() {
                                     </div>
 
                                     <div className="modal-body">
-                                        <form action="" className="sign-up-form">
+                                        <form 
+                                        onClick={(handleFormSubmit)}
+                                        action="" className="sign-up-form">
                                             <div className="mb-3">
                                                 <label htmlFor="signUpEmail" className="form-label">Email adress</label>
 
-                                                <input name='email' type="email"
+                                                <input 
+                                                ref={addInputs}
+                                                name='email' type="email"
                                                     required
                                                     className='form-control'
                                                     id='signUpEmail' />
@@ -43,7 +76,8 @@ export default function SignUpModal() {
                                             <div className="mb-3">
                                                 <label htmlFor="signUpPassword" className="form-label">password</label>
 
-                                                <input name='password' type="password"
+                                                <input ref={addInputs}
+                                                 name='password' type="password"
                                                     required
                                                     className='form-control'
                                                     id='signUpPassword' />
@@ -52,12 +86,13 @@ export default function SignUpModal() {
                                             <div className="mb-3">
                                                 <label htmlFor="repeatPassword" className="form-label">repeat password</label>
 
-                                                <input name='password' type="password"
+                                                <input  ref={addInputs}
+                                                name='password' type="password"
                                                     required
                                                     className='form-control'
                                                     id='repeatPassword' />
                                             </div>
-                                            <p className="text-danger mt-1">Validation</p>
+                                            <p className="text-danger mt-1" > {Validation}</p>
                                             <button className="btn btn-primary">Submit</button>
 
                                         </form>
@@ -70,7 +105,6 @@ export default function SignUpModal() {
 
                         </div>
 
-                    </div>
                 </div>
             )}
 
