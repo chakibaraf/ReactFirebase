@@ -55,6 +55,11 @@ export default function SignUpModal() {
         }
     }
 
+    const closeModal = () => {
+        setValidation("");
+        toggleModals("close")
+    }
+
     return (
         <>
             {modalState.signUpModal && (
@@ -62,7 +67,7 @@ export default function SignUpModal() {
                 <div className="position-fixed top-0 vw-100 vh-100">
 
                     <div 
-                    onClick={()=> toggleModals("close")}
+                    onClick={closeModal}
                     className="w-100 h-100 bg-dark bg-opacity-75">
 
                         </div>
@@ -76,7 +81,7 @@ export default function SignUpModal() {
                                     <div className="modal-header">
                                         <h5 className="modal-title"> Sign Up</h5>
                                         <button
-                                        onClick={()=> toggleModals("close")}
+                                        onClick={closeModal}
                                         className="btn-close"></button>
 
                                     </div>
