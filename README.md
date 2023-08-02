@@ -1,3 +1,3 @@
 "# ReactFirebase
 
-tests authentification avec firebase et reacts" 
+tests authentification avec firebases et reacts" 
